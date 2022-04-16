@@ -1,20 +1,59 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState, } from 'react'
+import { SafeAreaView } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
 
-export default function App() {
+import Home from './src/screens/home/Home';
+import Pokedetail from './src/screens/pokeDetail/Pokedetail';
+
+const EntryApp = (props) => {
+
+
+  const Stack = createNativeStackNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <SafeAreaView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName={props.root}
+          screenOptions={{
+            /* headerMode: 'none', */
+            gestureEnabled: false,
+          }}>
+
+          {/* HOME SCREEN */}
+          <Stack.Screen
+            options={
+              {
+                title: 'POKEDEX',
+                headerStyle: {
+                  backgroundColor: '#000'
+                },
+                headerTintColor: '#fff',
+              }
+            }
+            name='Home'
+            component={Home}
+          />
+
+          {/* POKEDETAIL SCREEN */}
+          <Stack.Screen
+            options={
+              {
+                title: 'Pokédetail',
+                headerStyle: {
+                  backgroundColor: '#000'
+                },
+                headerTintColor: '#fff',
+              }
+            }
+            name='Pokedetail'
+            component={Pokedetail}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default EntryApp;
